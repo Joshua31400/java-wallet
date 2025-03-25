@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetService {
-
     private List<Transaction> transactions;
 
     public BudgetService() {
@@ -25,7 +24,6 @@ public class BudgetService {
 
     public double calculateBalance() {
         double balance = 0.0;
-
         for (Transaction transaction : transactions) {
             if (transaction instanceof Income) {
                 balance += transaction.getAmount();
@@ -33,31 +31,9 @@ public class BudgetService {
                 balance -= transaction.getAmount();
             }
         }
-
         return balance;
     }
-
     public List<Transaction> getTransactions() {
         return transactions;
-    }
-
-    public List<Expense> getExpenses() {
-        List<Expense> expenses = new ArrayList<>();
-        for (Transaction transaction : transactions) {
-            if (transaction instanceof Expense) {
-                expenses.add((Expense) transaction);
-            }
-        }
-        return expenses;
-    }
-
-    public List<Income> getIncomes() {
-        List<Income> incomes = new ArrayList<>();
-        for (Transaction transaction : transactions) {
-            if (transaction instanceof Income) {
-                incomes.add((Income) transaction);
-            }
-        }
-        return incomes;
     }
 }

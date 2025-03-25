@@ -19,6 +19,10 @@ public class TransactionPanel extends JPanel {
         this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         setLayout(new BorderLayout());
 
+        JLabel titleLabel = new JLabel("Budget Manager", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH);
+
         TransactionButtonPanel buttonPanel = new TransactionButtonPanel(
             e -> addTransaction("Income"),
             e -> addTransaction("Expense"),
@@ -29,6 +33,10 @@ public class TransactionPanel extends JPanel {
         );
 
         add(buttonPanel, BorderLayout.CENTER);
+
+        JLabel creditLabel = new JLabel("© GitHub: Joshua31400", SwingConstants.LEFT);
+        creditLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        add(creditLabel, BorderLayout.SOUTH);
     }
 
     private void addTransaction(String type) {

@@ -47,6 +47,7 @@ public class TransactionButtonPanel extends JPanel {
                 if (img != null) {
                     Image scaledImg = img.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
                     button.setIcon(new ImageIcon(scaledImg));
+                    button.setHorizontalAlignment(SwingConstants.LEFT);
                 } else {
                     System.err.println("Couldn't load image: " + iconPath);
                 }
