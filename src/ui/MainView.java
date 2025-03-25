@@ -15,6 +15,7 @@ public class MainView extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setBackground(Color.LIGHT_GRAY);
 
         TransactionPanel transactionPanel = new TransactionPanel(budgetService);
         add(transactionPanel, BorderLayout.CENTER);
