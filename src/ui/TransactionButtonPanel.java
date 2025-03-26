@@ -37,29 +37,20 @@ public class TransactionButtonPanel extends JPanel {
         gbc.gridy++;
         add(quitButton, gbc);
     }
-
+    /*
+     * Scale image to fit button.
+     */
     private JButton createButton(String text, String iconPath, ActionListener listener, Color bgColor) {
         JButton button = new JButton(text);
-        java.net.URL imgURL = getClass().getResource(iconPath);
-        if (imgURL != null) {
-            try {
-                BufferedImage img = ImageIO.read(imgURL);
-                if (img != null) {
-                    Image scaledImg = img.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-                    button.setIcon(new ImageIcon(scaledImg));
-                    button.setHorizontalAlignment(SwingConstants.LEFT);
-                } else {
-                    System.err.println("Couldn't load image: " + iconPath);
-                }
-            } catch (IOException e) {
-                System.err.println("Couldn't load file: " + iconPath);
-            }
-        } else {
-            System.err.println("Couldn't find file: " + iconPath);
+        try {
+            BufferedImage img = ImageIO.read(getClass().getResource(iconPath));
+            Image scaledImg = img.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(scaledImg));
+            button.setHorizontalAlignment(SwingConstants.LEFT);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if (bgColor != null) {
-            button.setBackground(bgColor);
-        }
+        button.setBackground(bgColor);
         button.addActionListener(listener);
         return button;
     }

@@ -7,6 +7,7 @@ import budgetmanager.Transaction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.StringJoiner;
 
 public class TransactionPanel extends JPanel {
     private BudgetService budgetService;
@@ -63,12 +64,9 @@ public class TransactionPanel extends JPanel {
             String category = categoryField.getText();
             String description = descriptionField.getText();
 
-            Transaction transaction;
-            if (type.equals("Income")) {
-                transaction = new Income(id, amount, date, category, description);
-            } else {
-                transaction = new Expense(id, amount, date, category, description);
-            }
+            Transaction transaction = type.equals("Income") ?
+                new Income(id, amount, date, category, description) :
+                new Expense(id, amount, date, category, description);
 
             budgetService.addTransaction(transaction);
             JOptionPane.showMessageDialog(this, "✅ " + type + " added successfully!");
@@ -82,18 +80,17 @@ public class TransactionPanel extends JPanel {
 
     private void showTransactions() {
         java.util.List<Transaction> transactions = budgetService.getTransactions();
-        StringBuilder message = new StringBuilder();
+        StringJoiner message = new StringJoiner("\n-----------------------------\n");
 
         if (transactions.isEmpty()) {
-            message.append("No transactions recorded.");
+            message.add("No transactions recorded.");
         } else {
             for (Transaction transaction : transactions) {
-                message.append("ID: ").append(transaction.getId()).append("\n")
-                        .append("Amount: ").append(transaction.getAmount()).append("€\n")
-                        .append("Date: ").append(transaction.getDate()).append("\n")
-                        .append("Category: ").append(transaction.getCategory()).append("\n")
-                        .append("Description: ").append(transaction.getDescription()).append("\n")
-                        .append("-----------------------------\n");
+                message.add("ID: " + transaction.getId() + "\n" +
+                            "Amount: " + transaction.getAmount() + "€\n" +
+                            "Date: " + transaction.getDate() + "\n" +
+                            "Category: " + transaction.getCategory() + "\n" +
+                            "Description: " + transaction.getDescription());
             }
         }
 
@@ -102,9 +99,7 @@ public class TransactionPanel extends JPanel {
 
     private void removeTransaction() {
         String id = JOptionPane.showInputDialog(this, "Paste the transaction ID");
-        if (id != null && !id.isEmpty()) {
-            budgetService.removeTransaction(id);
-            JOptionPane.showMessageDialog(this, "Transaction deleted successfully!");
-        }
+        budgetService.removeTransaction(id);
+        JOptionPane.showMessageDialog(this, "Transaction deleted successfully!");
     }
 }

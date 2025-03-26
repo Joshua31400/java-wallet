@@ -19,9 +19,6 @@ public class SaveService {
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
-/*
-* Convert transactions list to JSON.
- */
     public void saveTransactions(List<Transaction> transactions) {
         String json = gson.toJson(transactions);
         try (FileWriter fileWriter = new FileWriter(FILE_PATH)) {
@@ -31,10 +28,6 @@ public class SaveService {
         }
     }
 
-/*
-* Parse JSON from file.
-* Deserialize b based on type.
- */
     public List<Transaction> loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         try (FileReader fileReader = new FileReader(FILE_PATH)) {
@@ -43,12 +36,11 @@ public class SaveService {
                 for (JsonElement element : jsonElement.getAsJsonArray()) {
                     JsonObject jsonObject = element.getAsJsonObject();
                     String type = jsonObject.get("type").getAsString();
-                    Transaction transaction = null;
-                    if ("Income".equals(type)) {
-                        transaction = gson.fromJson(jsonObject, Income.class);
-                    } else if ("Expense".equals(type)) {
-                        transaction = gson.fromJson(jsonObject, Expense.class);
-                    }
+                    Transaction transaction = switch (type) {
+                        case "Income" -> gson.fromJson(jsonObject, Income.class);
+                        case "Expense" -> gson.fromJson(jsonObject, Expense.class);
+                        default -> null;
+                    };
                     if (transaction != null) {
                         transactions.add(transaction);
                     }
