@@ -1,9 +1,7 @@
 package budgetmanager;
 
-import java.time.LocalDate;
-
 public class Expense extends Transaction {
-    public Expense(String id, double amount, LocalDate date, String category, String description) {
+    public Expense(String id, double amount, String date, String category, String description) {
         super(id, amount, date, category, description);
     }
 

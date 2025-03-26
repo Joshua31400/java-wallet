@@ -7,16 +7,12 @@ import budgetmanager.Transaction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class TransactionPanel extends JPanel {
     private BudgetService budgetService;
-    private DateTimeFormatter formatter;
 
     public TransactionPanel(BudgetService budgetService) {
         this.budgetService = budgetService;
-        this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Budget Manager", SwingConstants.CENTER);
@@ -58,7 +54,7 @@ public class TransactionPanel extends JPanel {
         if (option == JOptionPane.OK_OPTION) {
             String id = idField.getText();
             double amount = Double.parseDouble(amountField.getText());
-            LocalDate date = LocalDate.parse(dateField.getText(), formatter);
+            String date = dateField.getText();
             String category = categoryField.getText();
             String description = descriptionField.getText();
 
@@ -89,7 +85,7 @@ public class TransactionPanel extends JPanel {
             for (Transaction transaction : transactions) {
                 message.append("ID: ").append(transaction.getId()).append("\n")
                         .append("Amount: ").append(transaction.getAmount()).append("€\n")
-                        .append("Date: ").append(transaction.getDate().format(formatter)).append("\n")
+                        .append("Date: ").append(transaction.getDate()).append("\n")
                         .append("Category: ").append(transaction.getCategory()).append("\n")
                         .append("Description: ").append(transaction.getDescription()).append("\n")
                         .append("-----------------------------\n");
