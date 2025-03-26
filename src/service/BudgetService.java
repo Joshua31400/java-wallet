@@ -1,39 +1,41 @@
 package service;
 
 import budgetmanager.Transaction;
-import budgetmanager.Income;
-import budgetmanager.Expense;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetService {
     private List<Transaction> transactions;
+    private SaveService saveService;
 
     public BudgetService() {
-        transactions = new ArrayList<>();
+        saveService = new SaveService();
+        transactions = saveService.loadTransactions();
     }
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+        saveService.saveTransactions(transactions);
     }
 
     public void removeTransaction(String id) {
-        transactions.removeIf(t -> t.getId().equals(id));
+        transactions.removeIf(transaction -> transaction.getId().equals(id));
+        saveService.saveTransactions(transactions);
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public double calculateBalance() {
-        double balance = 0.0;
+        double balance = 0;
         for (Transaction transaction : transactions) {
-            if (transaction instanceof Income) {
+            if (transaction instanceof budgetmanager.Income) {
                 balance += transaction.getAmount();
-            } else if (transaction instanceof Expense) {
+            } else if (transaction instanceof budgetmanager.Expense) {
                 balance -= transaction.getAmount();
             }
         }
         return balance;
-    }
-    public List<Transaction> getTransactions() {
-        return transactions;
     }
 }

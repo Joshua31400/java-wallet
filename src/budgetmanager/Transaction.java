@@ -6,13 +6,15 @@ public abstract class Transaction {
     private String date;
     private String description;
     private String category;
+    private String type;
 
-    public Transaction(String id, double amount, String date, String description, String category) {
+    public Transaction(String id, double amount, String date, String description, String category, String type) {
         this.id = id;
         this.amount = amount;
         this.date = date;
         this.description = description;
         this.category = category;
+        this.type = type;
     }
 
     public double getAmount() {
@@ -33,5 +35,9 @@ public abstract class Transaction {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getType() {
+        return type;
     }
 }
