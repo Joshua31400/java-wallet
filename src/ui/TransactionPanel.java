@@ -17,21 +17,26 @@ public class TransactionPanel extends JPanel {
 
         JLabel titleLabel = new JLabel("Budget Manager", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(Color.BLACK);
+        titleLabel.setForeground(Color.WHITE);
         add(titleLabel, BorderLayout.NORTH);
 
         TransactionButtonPanel buttonPanel = new TransactionButtonPanel(
-            e -> addTransaction("Income"),
-            e -> addTransaction("Expense"),
-            e -> showBalance(),
-            e -> showTransactions(),
-            e -> removeTransaction(),
-            e -> System.exit(0)
+            _ -> addTransaction("Income"),
+            _ -> addTransaction("Expense"),
+            _ -> showBalance(),
+            _ -> showTransactions(),
+            _ -> removeTransaction(),
+            _ -> System.exit(0)
         );
-
+        buttonPanel.setBackground(Color.BLACK);
         add(buttonPanel, BorderLayout.CENTER);
 
         JLabel creditLabel = new JLabel("© GitHub: Joshua31400", SwingConstants.LEFT);
         creditLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        creditLabel.setOpaque(true);
+        creditLabel.setBackground(Color.WHITE);
         add(creditLabel, BorderLayout.SOUTH);
     }
 

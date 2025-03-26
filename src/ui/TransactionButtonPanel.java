@@ -16,10 +16,10 @@ public class TransactionButtonPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton addIncomeButton = createButton("Add Income", "/icons/earnings.png", addIncomeListener, Color.white);
-        JButton addExpenseButton = createButton("Add Expense", "/icons/loss.png", addExpenseListener, Color.white);
+        JButton addIncomeButton = createButton("Add Income", "/icons/earnings.png", addIncomeListener, Color.WHITE);
+        JButton addExpenseButton = createButton("Add Expense", "/icons/loss.png", addExpenseListener, Color.WHITE);
         JButton showBalanceButton = createButton("Show Balance", "/icons/overspent.png", showBalanceListener, Color.WHITE);
-        JButton showTransactionsButton = createButton("Show Transactions", "/icons/transaction.png", showTransactionsListener, Color.white);
+        JButton showTransactionsButton = createButton("Show Transactions", "/icons/transaction.png", showTransactionsListener, Color.WHITE);
         JButton removeTransactionButton = createButton("Delete Transaction", "/icons/quit.png", removeTransactionListener, Color.WHITE);
         JButton quitButton = createButton("Quit", "/icons/cross.png", quitListener, Color.RED);
 
