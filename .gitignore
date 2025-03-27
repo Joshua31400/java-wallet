@@ -27,3 +27,13 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Config IDE ###
+*.iml
+*.xml
+
+### Config IntelliJ IDEA ###
+.idea/
+
+### Test json files ###
+*.json
