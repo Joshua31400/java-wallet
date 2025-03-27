@@ -1,15 +1,8 @@
 package service;
 
 import budgetmanager.Transaction;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.*;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,42 +11,74 @@ import java.util.List;
 public class SaveService {
     private Gson gson;
     private String userFilePath;
+    private String username;
+    private String password;
 
     public SaveService(String username) {
-        gson = new GsonBuilder().setPrettyPrinting().create();
-        userFilePath = "src/save/" + username + "_transactions.json";
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
+        this.userFilePath = "src/save/" + username + "_transactions.json";
+        this.username = username;
+        this.password = "";
     }
 
     public void saveTransactions(List<Transaction> transactions) {
-        String json = gson.toJson(transactions);
+        JsonObject userJson = new JsonObject();
+
+        if (Files.exists(Paths.get(userFilePath))) {
+            try (FileReader fileReader = new FileReader(userFilePath)) {
+                JsonElement jsonElement = JsonParser.parseReader(fileReader);
+                if (jsonElement.isJsonObject()) {
+                    JsonObject existingData = jsonElement.getAsJsonObject();
+
+                    if (existingData.has("username")) {
+                        this.username = existingData.get("username").getAsString();
+                    }
+                    if (existingData.has("password")) {
+                        this.password = existingData.get("password").getAsString();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        userJson.addProperty("username", this.username);
+        userJson.addProperty("password", this.password);
+        userJson.add("transactions", gson.toJsonTree(transactions));
+
         try (FileWriter fileWriter = new FileWriter(userFilePath)) {
-            fileWriter.write(json);
+            fileWriter.write(gson.toJson(userJson));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Loads transactions from a JSON file for the current user.
-     *
-     * @return a list of transactions
-     */
     public List<Transaction> loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         if (Files.exists(Paths.get(userFilePath))) {
             try (FileReader fileReader = new FileReader(userFilePath)) {
                 JsonElement jsonElement = JsonParser.parseReader(fileReader);
-                if (jsonElement.isJsonArray()) {
-                    for (JsonElement element : jsonElement.getAsJsonArray()) {
-                        JsonObject jsonObject = element.getAsJsonObject();
-                        String type = jsonObject.get("type").getAsString();
-                        Transaction transaction = switch (type) {
-                            case "Income" -> gson.fromJson(jsonObject, budgetmanager.Income.class);
-                            case "Expense" -> gson.fromJson(jsonObject, budgetmanager.Expense.class);
-                            default -> null;
-                        };
-                        if (transaction != null) {
-                            transactions.add(transaction);
+                if (jsonElement.isJsonObject()) {
+                    JsonObject userJson = jsonElement.getAsJsonObject();
+                    if (userJson.has("username")) {
+                        this.username = userJson.get("username").getAsString();
+                    }
+                    if (userJson.has("password")) {
+                        this.password = userJson.get("password").getAsString();
+                    }
+                    if (userJson.has("transactions")) {
+                        JsonArray transactionsArray = userJson.getAsJsonArray("transactions");
+                        for (JsonElement element : transactionsArray) {
+                            JsonObject jsonObject = element.getAsJsonObject();
+                            String type = jsonObject.get("type").getAsString();
+                            Transaction transaction = switch (type) {
+                                case "Income" -> gson.fromJson(jsonObject, budgetmanager.Income.class);
+                                case "Expense" -> gson.fromJson(jsonObject, budgetmanager.Expense.class);
+                                default -> null;
+                            };
+                            if (transaction != null) {
+                                transactions.add(transaction);
+                            }
                         }
                     }
                 }
