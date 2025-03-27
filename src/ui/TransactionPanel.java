@@ -12,11 +12,11 @@ import java.util.StringJoiner;
 public class TransactionPanel extends JPanel {
     private BudgetService budgetService;
 
-    public TransactionPanel(BudgetService budgetService) {
+    public TransactionPanel(BudgetService budgetService, String username) {
         this.budgetService = budgetService;
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Budget Manager", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("WELCOME " + username, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(Color.BLACK);

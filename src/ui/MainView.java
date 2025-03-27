@@ -9,16 +9,25 @@ public class MainView extends JFrame {
     private BudgetService budgetService;
 
     public MainView() {
-        budgetService = new BudgetService();
-
         setTitle("Personal Budget Manager");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        showLoginPanel();
+    }
 
-        TransactionPanel transactionPanel = new TransactionPanel(budgetService);
-        add(transactionPanel, BorderLayout.CENTER);
+    private void showLoginPanel() {
+        LoginPanel loginPanel = new LoginPanel(this);
+        setContentPane(loginPanel);
+        revalidate();
+    }
+
+    public void showTransactionPanel(String username) {
+        budgetService = new BudgetService(username);
+        TransactionPanel transactionPanel = new TransactionPanel(budgetService, username);
+        setContentPane(transactionPanel);
+        revalidate();
     }
 
     public static void main(String[] args) {

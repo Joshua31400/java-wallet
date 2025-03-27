@@ -8,8 +8,8 @@ public class BudgetService {
     private List<Transaction> transactions;
     private SaveService saveService;
 
-    public BudgetService() {
-        saveService = new SaveService();
+    public BudgetService(String username) {
+        saveService = new SaveService(username);
         transactions = saveService.loadTransactions();
     }
 
