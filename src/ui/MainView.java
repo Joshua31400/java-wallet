@@ -15,6 +15,7 @@ public class MainView extends JFrame {
         setLayout(new BorderLayout());
 
         showLoginPanel();
+        setLocationRelativeTo(null);
     }
 
     private void showLoginPanel() {
@@ -23,9 +24,9 @@ public class MainView extends JFrame {
         revalidate();
     }
 
-    public void showTransactionPanel(String username) {
+    public void showTransactionPanel(String username, String password) {
         budgetService = new BudgetService(username);
-        TransactionPanel transactionPanel = new TransactionPanel(budgetService, username);
+        TransactionPanel transactionPanel = new TransactionPanel(budgetService, username, password);
         setContentPane(transactionPanel);
         revalidate();
     }
