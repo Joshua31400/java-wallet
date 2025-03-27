@@ -10,14 +10,14 @@ public class MainView extends JFrame {
 
     public MainView() {
         budgetService = new BudgetService();
+        String username = "Joshua31400"; // Remplacez par le nom d'utilisateur approprié
 
         setTitle("Personal Budget Manager");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
-        TransactionPanel transactionPanel = new TransactionPanel(budgetService);
+        TransactionPanel transactionPanel = new TransactionPanel(budgetService, username);
         add(transactionPanel, BorderLayout.CENTER);
     }
 

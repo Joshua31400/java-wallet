@@ -1,22 +1,22 @@
 package ui;
 
 import service.BudgetService;
+import budgetmanager.Transaction;
 import budgetmanager.Income;
 import budgetmanager.Expense;
-import budgetmanager.Transaction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.StringJoiner;
+import java.util.List;
 
 public class TransactionPanel extends JPanel {
     private BudgetService budgetService;
 
-    public TransactionPanel(BudgetService budgetService) {
+    public TransactionPanel(BudgetService budgetService, String username) {
         this.budgetService = budgetService;
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Budget Manager", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("WELCOME " + username, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(Color.BLACK);
@@ -79,22 +79,49 @@ public class TransactionPanel extends JPanel {
     }
 
     private void showTransactions() {
-        java.util.List<Transaction> transactions = budgetService.getTransactions();
-        StringJoiner message = new StringJoiner("\n-----------------------------\n");
+        List<Transaction> transactions = budgetService.getTransactions();
 
-        if (transactions.isEmpty()) {
-            message.add("No transactions recorded.");
-        } else {
-            for (Transaction transaction : transactions) {
-                message.add("ID: " + transaction.getId() + "\n" +
-                            "Amount: " + transaction.getAmount() + "€\n" +
-                            "Date: " + transaction.getDate() + "\n" +
-                            "Category: " + transaction.getCategory() + "\n" +
-                            "Description: " + transaction.getDescription());
+        JPanel incomePanel = new JPanel();
+        incomePanel.setLayout(new BoxLayout(incomePanel, BoxLayout.Y_AXIS));
+        JPanel expensePanel = new JPanel();
+        expensePanel.setLayout(new BoxLayout(expensePanel, BoxLayout.Y_AXIS));
+
+        for (Transaction transaction : transactions) {
+            JLabel transactionLabel = new JLabel(
+                "<html>ID: " + transaction.getId() + "<br>" +
+                "Amount: " + transaction.getAmount() + "€<br>" +
+                "Date: " + transaction.getDate() + "<br>" +
+                "Category: " + transaction.getCategory() + "<br>" +
+                "Description: " + transaction.getDescription() + "</html>"
+            );
+            transactionLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            if (transaction instanceof Income) {
+                incomePanel.add(transactionLabel);
+            } else if (transaction instanceof Expense) {
+                expensePanel.add(transactionLabel);
             }
         }
 
-        JOptionPane.showMessageDialog(this, message.toString(), "List of Transactions", JOptionPane.INFORMATION_MESSAGE);
+        JPanel incomeContainer = new JPanel(new BorderLayout());
+        JLabel incomeTitle = new JLabel("Income", SwingConstants.CENTER);
+        incomeTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        incomeContainer.add(incomeTitle, BorderLayout.NORTH);
+        incomeContainer.add(new JScrollPane(incomePanel), BorderLayout.CENTER);
+
+        JPanel expenseContainer = new JPanel(new BorderLayout());
+        JLabel expenseTitle = new JLabel("Expense", SwingConstants.CENTER);
+        expenseTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        expenseContainer.add(expenseTitle, BorderLayout.NORTH);
+        expenseContainer.add(new JScrollPane(expensePanel), BorderLayout.CENTER);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, incomeContainer, expenseContainer);
+        splitPane.setDividerLocation(300);
+
+        JFrame frame = new JFrame("Transactions");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.add(splitPane);
+        frame.setVisible(true);
     }
 
     private void removeTransaction() {
