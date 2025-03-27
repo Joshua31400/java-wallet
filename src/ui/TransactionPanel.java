@@ -1,13 +1,12 @@
 package ui;
 
-import service.BudgetService;
-import budgetmanager.Income;
 import budgetmanager.Expense;
+import budgetmanager.Income;
 import budgetmanager.Transaction;
+import service.BudgetService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.StringJoiner;
 
 public class TransactionPanel extends JPanel {
     private BudgetService budgetService;
@@ -27,7 +26,7 @@ public class TransactionPanel extends JPanel {
             _ -> addTransaction("Income"),
             _ -> addTransaction("Expense"),
             _ -> showBalance(),
-            _ -> showTransactions(),
+            _ -> showTransactionPanel(),
             _ -> removeTransaction(),
             _ -> System.exit(0)
         );
@@ -69,7 +68,7 @@ public class TransactionPanel extends JPanel {
                 new Expense(id, amount, date, category, description);
 
             budgetService.addTransaction(transaction);
-            JOptionPane.showMessageDialog(this, "✅ " + type + " added successfully!");
+            JOptionPane.showMessageDialog(this, "✅" + type + " added successfully!");
         }
     }
 
@@ -78,23 +77,8 @@ public class TransactionPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "💰 Current Balance: " + balance + "€");
     }
 
-    private void showTransactions() {
-        java.util.List<Transaction> transactions = budgetService.getTransactions();
-        StringJoiner message = new StringJoiner("\n-----------------------------\n");
-
-        if (transactions.isEmpty()) {
-            message.add("No transactions recorded.");
-        } else {
-            for (Transaction transaction : transactions) {
-                message.add("ID: " + transaction.getId() + "\n" +
-                            "Amount: " + transaction.getAmount() + "€\n" +
-                            "Date: " + transaction.getDate() + "\n" +
-                            "Category: " + transaction.getCategory() + "\n" +
-                            "Description: " + transaction.getDescription());
-            }
-        }
-
-        JOptionPane.showMessageDialog(this, message.toString(), "List of Transactions", JOptionPane.INFORMATION_MESSAGE);
+    private void showTransactionPanel() {
+        new ShowTransaction(budgetService).setVisible(true);
     }
 
     private void removeTransaction() {
