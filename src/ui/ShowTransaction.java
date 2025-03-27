@@ -10,62 +10,58 @@ import java.awt.*;
 import java.util.List;
 
 public class ShowTransaction extends JFrame {
-    private BudgetService budgetService;
-
-    public ShowTransaction(BudgetService budgetService) {
-        this.budgetService = budgetService;
+    public ShowTransaction(BudgetService budgetService, Component parent) {
         setTitle("Transactions");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        showTransactions();
-    }
-
-    private void showTransactions() {
         List<Transaction> transactions = budgetService.getTransactions();
 
-        JPanel incomePanel = new JPanel();
-        incomePanel.setLayout(new BoxLayout(incomePanel, BoxLayout.Y_AXIS));
-        JPanel expensePanel = new JPanel();
-        expensePanel.setLayout(new BoxLayout(expensePanel, BoxLayout.Y_AXIS));
-
-        for (Transaction transaction : transactions) {
-            JLabel transactionLabel = new JLabel(
-                "<html>ID: " + transaction.getId() + "<br>" +
-                "Amount: " + transaction.getAmount() + "€<br>" +
-                "Date: " + transaction.getDate() + "<br>" +
-                "Category: " + transaction.getCategory() + "<br>" +
-                "Description: " + transaction.getDescription() + "</html>"
-            );
-            transactionLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-            if (transaction instanceof Income) {
-                incomePanel.add(transactionLabel);
-            } else if (transaction instanceof Expense) {
-                expensePanel.add(transactionLabel);
-            }
-        }
-
-        JPanel incomeContainer = new JPanel(new BorderLayout());
-        JLabel incomeTitle = new JLabel("Income", SwingConstants.CENTER);
-        incomeTitle.setFont(new Font("Arial", Font.BOLD, 16));
-        incomeContainer.add(incomeTitle, BorderLayout.NORTH);
-        incomeContainer.add(new JScrollPane(incomePanel), BorderLayout.CENTER);
-
-        JPanel expenseContainer = new JPanel(new BorderLayout());
-        JLabel expenseTitle = new JLabel("Expense", SwingConstants.CENTER);
-        expenseTitle.setFont(new Font("Arial", Font.BOLD, 16));
-        expenseContainer.add(expenseTitle, BorderLayout.NORTH);
-        expenseContainer.add(new JScrollPane(expensePanel), BorderLayout.CENTER);
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, incomeContainer, expenseContainer);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                createTransactionPanel("Income", transactions, Income.class),
+                createTransactionPanel("Expense", transactions, Expense.class));
         splitPane.setResizeWeight(0.5);
 
         add(splitPane, BorderLayout.CENTER);
+
+        setLocationRelativeTo(parent);
+        setLocation(getX() + 20, getY() + 20);
+    }
+    /**
+     * Creates a panel to display transactions with each own container.
+     */
+    private JPanel createTransactionPanel(String title, List<Transaction> transactions, Class<? extends Transaction> type) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.BLACK);
+
+        transactions.stream()
+                .filter(type::isInstance)
+                .forEach(transaction -> {
+                    JLabel transactionLabel = new JLabel(
+                            String.format("<html>ID: %s<br>Amount: %.2f€<br>Date: %s<br>Category: %s<br>Description: %s</html>",
+                                    transaction.getId(), transaction.getAmount(), transaction.getDate(),
+                                    transaction.getCategory(), transaction.getDescription()));
+                    transactionLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                    transactionLabel.setForeground(Color.WHITE);
+                    panel.add(transactionLabel);
+                    panel.add(new JSeparator(SwingConstants.HORIZONTAL));
+                });
+
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBackground(Color.BLACK);
+        JLabel panelTitle = new JLabel(title, SwingConstants.CENTER);
+        panelTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        panelTitle.setForeground(Color.WHITE);
+        container.add(panelTitle, BorderLayout.NORTH);
+        container.add(new JScrollPane(panel), BorderLayout.CENTER);
+
+        return container;
     }
 
     public static void main(String[] args) {
         BudgetService budgetService = new BudgetService("username");
-        SwingUtilities.invokeLater(() -> new ShowTransaction(budgetService).setVisible(true));
+        SwingUtilities.invokeLater(() -> new ShowTransaction(budgetService, null).setVisible(true));
     }
 }
