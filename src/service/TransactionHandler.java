@@ -56,36 +56,66 @@ public class TransactionHandler {
         }
     }
 
+    /**
+     * Saves the transaction to a JSON file.
+        * If the file does not exist, it creates a new one.
+     * @param transaction
+     */
     public void saveTransactionToFile(Transaction transaction) {
         String filePath = "src/save/" + username + "_transactions.json";
         JSONObject userJson;
+        JSONArray transactions;
+
         try (FileReader reader = new FileReader(filePath)) {
             JSONTokener tokener = new JSONTokener(reader);
             userJson = new JSONObject(tokener);
+            transactions = userJson.getJSONArray("transactions");
         } catch (IOException e) {
             userJson = new JSONObject();
             userJson.put("username", username);
             userJson.put("password", password);
-            userJson.put("transactions", new JSONArray());
+            transactions = new JSONArray();
         }
 
-        JSONArray transactions = userJson.getJSONArray("transactions");
+        boolean transactionExists = false;
+        for (int i = 0; i < transactions.length(); i++) {
+            JSONObject existingTransaction = transactions.getJSONObject(i);
+            if (isTransactionEqual(existingTransaction, transaction)) {
+                transactionExists = true;
+                break;
+            }
+        }
+        if (!transactionExists) {
+            JSONObject transactionJson = new JSONObject();
+            transactionJson.put("id", transaction.getId());
+            transactionJson.put("amount", transaction.getAmount());
+            transactionJson.put("date", transaction.getDate());
+            transactionJson.put("category", transaction.getCategory());
+            transactionJson.put("description", transaction.getDescription());
+            transactionJson.put("type", transaction instanceof Income ? "Income" : "Expense");
 
-        JSONObject transactionJson = new JSONObject();
-        transactionJson.put("id", transaction.getId());
-        transactionJson.put("amount", transaction.getAmount());
-        transactionJson.put("date", transaction.getDate());
-        transactionJson.put("category", transaction.getCategory());
-        transactionJson.put("description", transaction.getDescription());
-        transactionJson.put("type", transaction instanceof Income ? "Income" : "Expense");
+            transactions.put(transactionJson);
+        }
 
-        transactions.put(transactionJson);
+        userJson.put("transactions", transactions);
 
         try (FileWriter file = new FileWriter(filePath)) {
             file.write(userJson.toString());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving transaction: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+/**
+        * Compares an existing transaction with a new transaction to check if they are equal.
+        * @param existingTransaction The existing transaction in JSON format.
+        * @param newTransaction The new transaction to compare.
+        * @return true if the transactions are equal, false otherwise.
+ */
+    private boolean isTransactionEqual(JSONObject existingTransaction, Transaction newTransaction) {
+        return existingTransaction.getString("id").equals(newTransaction.getId()) ||
+                (existingTransaction.getDouble("amount") == newTransaction.getAmount() &&
+                        existingTransaction.getString("date").equals(newTransaction.getDate()) &&
+                        existingTransaction.getString("description").equals(newTransaction.getDescription()));
     }
 
     public void showBalance() {
