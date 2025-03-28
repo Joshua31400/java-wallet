@@ -17,27 +17,9 @@ public abstract class Transaction {
         this.type = type;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getType() {
-        return type;
-    }
+    public double getAmount() { return amount; }
+    public String getDate() { return date; }
+    public String getDescription() { return description; }
+    public String getId() { return id; }
+    public String getCategory() { return category; }
 }

@@ -1,5 +1,3 @@
-package budgetmanager;
-
 import ui.MainView;
 
 public class MainApp {

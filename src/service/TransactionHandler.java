@@ -90,7 +90,9 @@ public class TransactionHandler {
 
     public void showBalance() {
         double balance = budgetService.calculateBalance();
-        JOptionPane.showMessageDialog(null, "💰 Current Balance: " + balance + "€");
+        String color = balance < 0 ? "red" : "green";
+        String message = String.format("<html>💰 Current Balance: <span style='color:%s;'>%.2f&nbsp;€</span></html>", color, balance);
+        JOptionPane.showMessageDialog(null, message, "Balance", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void showTransactionPanel() {
