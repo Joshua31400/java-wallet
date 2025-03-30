@@ -5,6 +5,8 @@ import budgetmanager.Income;
 import budgetmanager.Expense;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
 
 public class TransactionHandler {
     private BudgetService budgetService;
@@ -20,7 +22,7 @@ public class TransactionHandler {
     public void addTransaction(String type) {
         JTextField idField = new JTextField();
         JTextField amountField = new JTextField();
-        JTextField dateField = new JTextField();
+        JFormattedTextField dateField = createFormattedDateField();
         JTextField categoryField = new JTextField();
         JTextField descriptionField = new JTextField();
 
@@ -47,6 +49,17 @@ public class TransactionHandler {
             budgetService.addTransaction(transaction);
             JOptionPane.showMessageDialog(null, "✅" + type + " added successfully!");
         }
+    }
+
+    private JFormattedTextField createFormattedDateField() {
+        MaskFormatter dateFormatter = null;
+        try {
+            dateFormatter = new MaskFormatter("##/##/####");
+            dateFormatter.setPlaceholderCharacter('_');
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new JFormattedTextField(dateFormatter);
     }
 
     public void showBalance() {
