@@ -1,11 +1,11 @@
-package ui;
+package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class TransactionButtonPanel extends JPanel {
     public TransactionButtonPanel(ActionListener addIncomeListener, ActionListener addExpenseListener,

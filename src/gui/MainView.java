@@ -1,4 +1,4 @@
-package ui;
+package gui;
 
 import service.BudgetService;
 
@@ -19,14 +19,14 @@ public class MainView extends JFrame {
     }
 
     private void showLoginPanel() {
-        ui.LoginPanel loginPanel = new ui.LoginPanel(this);
+        gui.LoginPanel loginPanel = new gui.LoginPanel(this);
         setContentPane(loginPanel);
         revalidate();
     }
 
     public void showTransactionPanel(String username, String password) {
         budgetService = new BudgetService(username, password);
-        ui.TransactionPanel transactionPanel = new ui.TransactionPanel(budgetService, username, password);
+        gui.TransactionPanel transactionPanel = new gui.TransactionPanel(budgetService, username, password);
         setContentPane(transactionPanel);
         revalidate();
     }
