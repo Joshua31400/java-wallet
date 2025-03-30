@@ -19,14 +19,14 @@ public class MainView extends JFrame {
     }
 
     private void showLoginPanel() {
-        LoginPanel loginPanel = new LoginPanel(this);
+        ui.LoginPanel loginPanel = new ui.LoginPanel(this);
         setContentPane(loginPanel);
         revalidate();
     }
 
     public void showTransactionPanel(String username, String password) {
-        budgetService = new BudgetService(username);
-        TransactionPanel transactionPanel = new TransactionPanel(budgetService, username, password);
+        budgetService = new BudgetService(username, password);
+        ui.TransactionPanel transactionPanel = new ui.TransactionPanel(budgetService, username, password);
         setContentPane(transactionPanel);
         revalidate();
     }

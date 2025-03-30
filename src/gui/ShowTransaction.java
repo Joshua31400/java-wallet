@@ -1,4 +1,4 @@
-package ui;
+package gui;
 
 import budgetmanager.Transaction;
 import budgetmanager.Income;
@@ -28,9 +28,7 @@ public class ShowTransaction extends JFrame {
         setLocationRelativeTo(parent);
         setLocation(getX() + 20, getY() + 20);
     }
-    /**
-     * Creates a panel to display transactions with each own container.
-     */
+
     private JPanel createTransactionPanel(String title, List<Transaction> transactions, Class<? extends Transaction> type) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -61,7 +59,7 @@ public class ShowTransaction extends JFrame {
     }
 
     public static void main(String[] args) {
-        BudgetService budgetService = new BudgetService("username");
+        BudgetService budgetService = new BudgetService("username", "password");
         SwingUtilities.invokeLater(() -> new ShowTransaction(budgetService, null).setVisible(true));
     }
 }

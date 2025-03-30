@@ -57,7 +57,7 @@ public class TransactionHandler {
     }
 
     public void showTransactionPanel() {
-        new ui.ShowTransaction(budgetService, null).setVisible(true);
+        new gui.ShowTransaction(budgetService, null).setVisible(true);
     }
 
     public void removeTransaction() {

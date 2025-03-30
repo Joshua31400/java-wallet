@@ -14,11 +14,11 @@ public class SaveService {
     private String username;
     private String password;
 
-    public SaveService(String username) {
+    public SaveService(String username, String password) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.userFilePath = "src/save/" + username + "_transactions.json";
         this.username = username;
-        this.password = "";
+        this.password = password;
     }
 
     public void saveTransactions(List<Transaction> transactions) {
