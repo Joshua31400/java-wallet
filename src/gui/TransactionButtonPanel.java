@@ -1,5 +1,7 @@
 package gui;
 
+import service.TransactionHandler;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,20 +10,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TransactionButtonPanel extends JPanel {
-    public TransactionButtonPanel(ActionListener addIncomeListener, ActionListener addExpenseListener,
-                                  ActionListener showBalanceListener, ActionListener showTransactionsListener,
-                                  ActionListener removeTransactionListener, ActionListener quitListener) {
+    public TransactionButtonPanel(TransactionHandler transactionHandler) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton addIncomeButton = createButton("Add Income", "/icons/earnings.png", addIncomeListener, Color.WHITE);
-        JButton addExpenseButton = createButton("Add Expense", "/icons/loss.png", addExpenseListener, Color.WHITE);
-        JButton showBalanceButton = createButton("Show Balance", "/icons/overspent.png", showBalanceListener, Color.WHITE);
-        JButton showTransactionsButton = createButton("Show Transactions", "/icons/transaction.png", showTransactionsListener, Color.WHITE);
-        JButton removeTransactionButton = createButton("Delete Transaction", "/icons/quit.png", removeTransactionListener, Color.WHITE);
-        JButton quitButton = createButton("Quit", "/icons/cross.png", quitListener, Color.RED);
+        JButton addIncomeButton = createButton("Add Income", "/icons/earnings.png", e -> transactionHandler.addTransaction("Income"), Color.WHITE);
+        JButton addExpenseButton = createButton("Add Expense", "/icons/loss.png", e -> transactionHandler.addTransaction("Expense"), Color.WHITE);
+        JButton showBalanceButton = createButton("Show Balance", "/icons/overspent.png", e -> transactionHandler.showBalance(), Color.WHITE);
+        JButton showTransactionsButton = createButton("Show Transactions", "/icons/transaction.png", e -> transactionHandler.showTransactionPanel(), Color.WHITE);
+        JButton removeTransactionButton = createButton("Delete Transaction", "/icons/quit.png", e -> transactionHandler.removeTransaction(), Color.WHITE);
+        JButton quitButton = createButton("Quit", "/icons/cross.png", e -> System.exit(0), Color.RED);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -37,9 +37,7 @@ public class TransactionButtonPanel extends JPanel {
         gbc.gridy++;
         add(quitButton, gbc);
     }
-    /*
-     * Scale image to fit button.
-     */
+
     private JButton createButton(String text, String iconPath, ActionListener listener, Color bgColor) {
         JButton button = new JButton(text);
         try {

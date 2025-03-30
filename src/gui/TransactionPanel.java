@@ -20,14 +20,7 @@ public class TransactionPanel extends JPanel {
         titleLabel.setForeground(Color.WHITE);
         add(titleLabel, BorderLayout.NORTH);
 
-        TransactionButtonPanel buttonPanel = new TransactionButtonPanel(
-            _ -> transactionHandler.addTransaction("Income"),
-            _ -> transactionHandler.addTransaction("Expense"),
-            _ -> transactionHandler.showBalance(),
-            _ -> transactionHandler.showTransactionPanel(),
-            _ -> transactionHandler.removeTransaction(),
-            _ -> System.exit(0)
-        );
+        TransactionButtonPanel buttonPanel = new TransactionButtonPanel(transactionHandler);
         buttonPanel.setBackground(Color.BLACK);
         add(buttonPanel, BorderLayout.CENTER);
 
