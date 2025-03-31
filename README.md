@@ -14,7 +14,7 @@
 
 This project was developed during a POO cours, by Ynov Campus. The goal was to learn basic Java concepts.
 
-The application is a wallet manager that allows users to manage their finances. Users can add, remove, and view transactions, as well as see the history of their transactions. The application supports both income and expense transactions, providing a clear overview of the user's financial status.  
+The application is a wallet manager that allows users to manage their finances. Users can add, remove, and view transactions, as well as see the history of their transactions. The application supports both income and expense transactions, providing a clear overview of the user's financial status.
 
 The final project repository can be founded [here](https://github.com/Joshua31400/java-wallet.git)
 
@@ -29,10 +29,41 @@ git clone https://github.com/Joshua31400/java-wallet.git
 cd java-wallet
 ```
 
-2. Compile the project and run project:  
+2. Compile the project and run project:
 ```
-Clique on run button in your IDE
+Run with MainApp.java
 ```
+---
+## How to use the application
+
+<p>1. Add a username and password and click on the "Create User" button to create a new user.</p>
+
+<ul>
+   <li>The user information will be saved in a JSON file named after your username.</li>
+   <li>If the user already exists, you will be prompted to enter the password to access the existing user.</li>
+   <li>If the password is incorrect, you will be prompted to enter the correct password.</li>
+</ul>
+
+<p>2. Now you can click on "Login" to access the application.</p>
+
+<p>3. You can add a transaction by clicking on the "Add Expense/ Income" button.</p>
+
+<ul>
+   <li>You can now enter amount, date, category and description of the transaction.</li>
+</ul>
+
+<p>4. With show balance button, you can see the balance of your wallet.</p>
+
+<p>5. With show transaction button, you can see the list of all transactions.</p>
+
+<p>6. You can remove a transaction by clicking on the "Delete Transaction" button.</p>
+
+<ul>
+   <li>Copy the transaction ID you want to delete and paste it in the text field.</li>
+</ul>
+
+
+
 
 ---
 ## 💻 Technologies
