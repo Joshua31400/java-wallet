@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
+import java.util.UUID;
+
 public class TransactionHandler {
     private BudgetService budgetService;
     private String username;
@@ -20,14 +22,12 @@ public class TransactionHandler {
     }
 
     public void addTransaction(String type) {
-        JTextField idField = new JTextField();
         JTextField amountField = new JTextField();
         JFormattedTextField dateField = createFormattedDateField();
         JTextField categoryField = new JTextField();
         JTextField descriptionField = new JTextField();
 
         Object[] message = {
-            type + " ID:", idField,
             type + " Amount:", amountField,
             "Date (DD/MM/YYYY):", dateField,
             "Category:", categoryField,
@@ -36,7 +36,7 @@ public class TransactionHandler {
 
         int option = JOptionPane.showConfirmDialog(null, message, "Add " + type, JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            String id = idField.getText();
+            String id = generateRandomId();
             double amount = Double.parseDouble(amountField.getText());
             String date = dateField.getText();
             String category = categoryField.getText();
@@ -60,6 +60,10 @@ public class TransactionHandler {
             e.printStackTrace();
         }
         return new JFormattedTextField(dateFormatter);
+    }
+
+    private String generateRandomId() {
+        return UUID.randomUUID().toString();
     }
 
     public void showBalance() {
