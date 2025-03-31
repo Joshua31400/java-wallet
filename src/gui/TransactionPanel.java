@@ -13,7 +13,8 @@ public class TransactionPanel extends JPanel {
         this.transactionHandler = new TransactionHandler(budgetService, username, password);
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("WELCOME " + username, SwingConstants.CENTER);
+        String capitalizedUsername = capitalizeFirstLetter(username);
+        JLabel titleLabel = new JLabel("WELCOME " + capitalizedUsername, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(Color.BLACK);
@@ -29,5 +30,12 @@ public class TransactionPanel extends JPanel {
         creditLabel.setOpaque(true);
         creditLabel.setBackground(Color.WHITE);
         add(creditLabel, BorderLayout.SOUTH);
+    }
+
+    private String capitalizeFirstLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }
