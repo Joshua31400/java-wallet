@@ -8,7 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+/**
+ * This class creates a panel with buttons for various transaction operations.
+ * Each button is associated with an action listener that performs the corresponding operation.
+ */
 public class TransactionButtonPanel extends JPanel {
     public TransactionButtonPanel(TransactionHandler transactionHandler) {
         setLayout(new GridBagLayout());
@@ -37,7 +40,9 @@ public class TransactionButtonPanel extends JPanel {
         gbc.gridy++;
         add(quitButton, gbc);
     }
-
+/**
+    * Creates a button with the specified text, icon, action listener, and background color.
+ */
     private JButton createButton(String text, String iconPath, ActionListener listener, Color bgColor) {
         JButton button = new JButton(text);
         try {

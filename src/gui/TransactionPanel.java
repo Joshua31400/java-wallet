@@ -8,7 +8,9 @@ import java.awt.*;
 
 public class TransactionPanel extends JPanel {
     private TransactionHandler transactionHandler;
-
+    /**
+     * Initializes the transaction panel interface.
+     */
     public TransactionPanel(BudgetService budgetService, String username, String password) {
         this.transactionHandler = new TransactionHandler(budgetService, username, password);
         setLayout(new BorderLayout());

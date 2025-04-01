@@ -8,6 +8,9 @@ import java.awt.*;
 public class MainView extends JFrame {
     private BudgetService budgetService;
 
+    /**
+     * Set up the size of the main window.
+     */
     public MainView() {
         setTitle("Personal Budget Manager");
         setSize(800, 600);

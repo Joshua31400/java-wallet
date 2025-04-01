@@ -20,7 +20,13 @@ public class TransactionHandler {
         this.username = username;
         this.password = password;
     }
-
+/**
+     * Adds a transaction (either income or expense) to the budget service.
+     * Prompts the user for details such as amount, date, category, and description.
+     * Displays a confirmation message upon successful addition.
+     *
+     * @param type The type of transaction ("Income" or "Expense").
+     */
     public void addTransaction(String type) {
         JTextField amountField = new JTextField();
         JFormattedTextField dateField = createFormattedDateField();
@@ -50,7 +56,12 @@ public class TransactionHandler {
             JOptionPane.showMessageDialog(null, "✅" + type + " added successfully!");
         }
     }
-
+/**
+     * Creates a formatted text field for date input with a specific mask.
+     * The mask is set to "##/##/####" to enforce the DD/MM/YYYY format.
+     *
+     * @return A JFormattedTextField with the date mask applied.
+     */
     private JFormattedTextField createFormattedDateField() {
         MaskFormatter dateFormatter = null;
         try {
@@ -61,11 +72,19 @@ public class TransactionHandler {
         }
         return new JFormattedTextField(dateFormatter);
     }
-
+/**
+     * Generates a random UUID string to be used as a unique identifier for transactions.
+     *
+     * @return A randomly generated UUID string.
+     */
     private String generateRandomId() {
         return UUID.randomUUID().toString();
     }
-
+/**
+     * Displays the current balance of the budget service.
+     * The balance is calculated by summing all income and subtracting all expenses.
+     * The balance is displayed in a dialog with color coding (red for negative, green for positive).
+     */
     public void showBalance() {
         double balance = budgetService.calculateBalance();
         String color = balance < 0 ? "red" : "green";

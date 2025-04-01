@@ -26,7 +26,9 @@ public class BudgetService {
     public List<Transaction> getTransactions() {
         return transactions;
     }
-
+/**
+     * Calculates the total balance by summing up all income and subtracting all expenses.
+     */
     public double calculateBalance() {
         double balance = 0;
         for (Transaction transaction : transactions) {

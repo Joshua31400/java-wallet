@@ -20,7 +20,12 @@ public class SaveService {
         this.username = username;
         this.password = password;
     }
-
+/**
+     * Saves the transactions to a JSON file.
+     * If the file already exists, it updates the existing data.
+     * It also saves the username and password in the JSON file.
+     * @param transactions List of transactions to save
+     */
     public void saveTransactions(List<Transaction> transactions) {
         JsonObject userJson = new JsonObject();
 
@@ -52,7 +57,12 @@ public class SaveService {
             e.printStackTrace();
         }
     }
-
+/**
+     * Loads transactions from the JSON file.
+     * If the file does not exist, it returns an empty list.
+     * It also retrieves the username and password from the JSON file.
+     * @return List of transactions
+     */
     public List<Transaction> loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         if (Files.exists(Paths.get(userFilePath))) {

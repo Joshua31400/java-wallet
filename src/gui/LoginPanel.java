@@ -6,7 +6,9 @@ import java.awt.*;
 public class LoginPanel extends JPanel {
     private MainView mainView;
     private LoginForm loginForm;
-
+    /**
+     * Initializes the login panel interface.
+     */
     public LoginPanel(MainView mainView) {
         this.mainView = mainView;
         setLayout(new BorderLayout());

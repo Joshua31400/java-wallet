@@ -11,6 +11,10 @@ public class LoginForm extends JPanel {
     private MainView mainView;
     private UserManager userManager;
 
+    /**
+     * Initializes the login form interface.
+     * Use mainView to switch between panels.
+     */
     public LoginForm(MainView mainView) {
         this.mainView = mainView;
         this.userManager = new UserManager();
@@ -55,7 +59,9 @@ public class LoginForm extends JPanel {
         gbc.gridy = 2;
         add(createUserButton, gbc);
     }
-
+    /**
+     * If the username and password are valid, switches to the transaction panel upon clicking the "login" button.
+     */
     private void login() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
@@ -67,6 +73,9 @@ public class LoginForm extends JPanel {
         }
     }
 
+    /**
+     * If the username and password are valid, creates a new user upon clicking the "create user" button.
+     */
     private void createUser() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());

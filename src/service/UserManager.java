@@ -18,7 +18,10 @@ public class UserManager {
     public UserManager() {
         users = new HashMap<>();
     }
-
+/**
+     * Loads the user data from a JSON file.
+     * If the file does not exist, it creates a new user.
+     */
     public boolean authenticateUser(String username, String password) {
         try (FileReader reader = new FileReader("src/save/" + username + "_transactions.json")) {
             JsonObject userJson = JsonParser.parseReader(reader).getAsJsonObject();

@@ -66,6 +66,8 @@ Run with MainApp.java
 ---
 ## 💻 Technologies
 
+In the 'lib' directory, you will find the libraries used in this project. The .jar files are included in the project.
+
 ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![JPanel](https://img.shields.io/badge/JPanel-000000.svg?style=for-the-badge&logoColor=white)
 ![JSON](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logoColor=white)

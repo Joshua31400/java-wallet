@@ -8,7 +8,10 @@ import service.BudgetService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
+/**
+ * ShowTransaction class displays a window with two panels: one for Income transactions and another for Expense transactions.
+ * Each panel shows the details of the transactions in a scrollable area.
+ */
 public class ShowTransaction extends JFrame {
     public ShowTransaction(BudgetService budgetService, Component parent) {
         setTitle("Transactions");
@@ -29,6 +32,10 @@ public class ShowTransaction extends JFrame {
         setLocation(getX() + 20, getY() + 20);
     }
 
+    /**
+     * Creates a panel to display transactions of a specific type (Income or Expense).
+     * Displays the transactions in a scrollable area with a title in two different container.
+     */
     private JPanel createTransactionPanel(String title, List<Transaction> transactions, Class<? extends Transaction> type) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
