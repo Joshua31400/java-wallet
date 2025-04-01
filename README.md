@@ -5,9 +5,10 @@
 
 1. [**📚 About the project**](#-about-the-project)
 2. [**🚀 How to run the project**](#-how-to-run-the-project)
-3. [**💻 Technologies**](#-technologies)
-4. [**🎥 Demo**](#-demo)
-5. [**👥 Credits**](#-credits)
+3. [**❓ How to use the application**](#-how-to-use-the-application)
+4. [**💻 Technologies**](#-technologies)
+5. [**🎥 Demo**](#-demo)
+6. [**👥 Credits**](#-credits)
 
 ---
 ## 📚 About the project
@@ -34,7 +35,7 @@ cd java-wallet
 Run with MainApp.java
 ```
 ---
-## How to use the application
+## ❓ How to use the application
 
 <p>1. Add a username and password and click on the "Create User" button to create a new user.</p>
 
@@ -62,13 +63,11 @@ Run with MainApp.java
    <li>Copy the transaction ID you want to delete and paste it in the text field.</li>
 </ul>
 
-
-
-
 ---
 ## 💻 Technologies
 
 ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![JPanel](https://img.shields.io/badge/JPanel-000000.svg?style=for-the-badge&logoColor=white)
 ![JSON](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logoColor=white)
 ![GSON](https://img.shields.io/badge/GSON-000000.svg?style=for-the-badge&logoColor=white)
 
