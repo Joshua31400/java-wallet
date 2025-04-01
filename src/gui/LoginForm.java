@@ -16,7 +16,7 @@ public class LoginForm extends JPanel {
         this.userManager = new UserManager();
 
         setLayout(new GridBagLayout());
-        setBackground(Color.BLACK);
+        setBackground(new Color(48, 48, 48));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 

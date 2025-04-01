@@ -32,7 +32,7 @@ public class ShowTransaction extends JFrame {
     private JPanel createTransactionPanel(String title, List<Transaction> transactions, Class<? extends Transaction> type) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.BLACK);
+        panel.setBackground(new Color(48, 48, 48));
 
         transactions.stream()
                 .filter(type::isInstance)
@@ -48,7 +48,7 @@ public class ShowTransaction extends JFrame {
                 });
 
         JPanel container = new JPanel(new BorderLayout());
-        container.setBackground(Color.BLACK);
+        container.setBackground(new Color(48, 48, 48));
         JLabel panelTitle = new JLabel(title, SwingConstants.CENTER);
         panelTitle.setFont(new Font("Arial", Font.BOLD, 16));
         panelTitle.setForeground(Color.WHITE);

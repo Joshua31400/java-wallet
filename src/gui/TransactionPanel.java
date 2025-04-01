@@ -15,14 +15,14 @@ public class TransactionPanel extends JPanel {
 
         String capitalizedUsername = capitalizeFirstLetter(username);
         JLabel titleLabel = new JLabel("WELCOME " + capitalizedUsername, SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 44));
         titleLabel.setOpaque(true);
-        titleLabel.setBackground(Color.BLACK);
+        titleLabel.setBackground(new Color(48, 48, 48));
         titleLabel.setForeground(Color.WHITE);
         add(titleLabel, BorderLayout.NORTH);
 
         TransactionButtonPanel buttonPanel = new TransactionButtonPanel(transactionHandler);
-        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.setBackground(new Color(48, 48, 48));
         add(buttonPanel, BorderLayout.CENTER);
 
         JLabel creditLabel = new JLabel("© GitHub: Joshua31400", SwingConstants.LEFT);
