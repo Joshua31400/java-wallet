@@ -1,14 +1,12 @@
 package service;
 
-import budgetmanager.Transaction;
-import budgetmanager.Income;
 import budgetmanager.Expense;
+import budgetmanager.Income;
+import budgetmanager.Transaction;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-
-import java.util.UUID;
 
 public class TransactionHandler {
     private BudgetService budgetService;
@@ -78,7 +76,8 @@ public class TransactionHandler {
      * @return A randomly generated UUID string.
      */
     private String generateRandomId() {
-        return UUID.randomUUID().toString();
+        int randomId = (int) (Math.random() * 900000) + 100000;
+        return String.valueOf(randomId);
     }
 /**
      * Displays the current balance of the budget service.
